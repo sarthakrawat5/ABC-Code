@@ -1,0 +1,1114 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f6f4ee">
+  <meta name="description" content="Find your people and your next thing with Nexus Club and Event Hub.">
+  <title>Nexus Club — Find your people</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #f6f4ee;
+      --white: #fffefa;
+      --ink: #17211d;
+      --muted: #727a71;
+      --line: #deded5;
+      --orange: #f05b3e;
+      --orange-dark: #d9432a;
+      --lime: #d8f26b;
+      --blue: #4262e9;
+      --serif: Georgia, "Times New Roman", serif;
+      --sans: "DM Sans", "Segoe UI", sans-serif;
+      --display: "Space Grotesk", "Segoe UI", sans-serif;
+      font-family: var(--sans);
+      color: var(--ink);
+      background: var(--paper);
+      font-synthesis: none;
+      text-rendering: optimizeLegibility;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; min-width: 0; background: var(--paper); }
+    button, input { font: inherit; }
+    button { color: inherit; }
+    a { color: inherit; text-decoration: none; }
+    [hidden] { display: none !important; }
+    .wrap { width: min(1200px, calc(100% - 64px)); margin-inline: auto; }
+
+    .site-header { height: 78px; display: flex; align-items: center; border-bottom: 1px solid rgba(23,33,29,.1); background: var(--paper); position: relative; z-index: 5; }
+    .nav { display: flex; align-items: center; justify-content: space-between; gap: 30px; }
+    .brand { display: inline-flex; align-items: center; gap: 10px; font: 700 22px/1 var(--display); letter-spacing: 0; }
+    .brand-mark { width: 30px; aspect-ratio: 1; background: var(--orange); color: var(--white); display: grid; place-items: center; border-radius: 50% 50% 50% 12%; transform: rotate(-12deg); font: 700 17px/1 var(--display); }
+    .brand-mark span { transform: rotate(12deg); }
+    .nav-links { display: flex; gap: 32px; align-items: center; margin-left: auto; }
+    .nav-links a { color: #4f5851; font-size: 13px; font-weight: 600; transition: color .18s ease; }
+    .nav-links a:hover { color: var(--orange-dark); }
+    .nav-actions { display: flex; align-items: center; gap: 12px; }
+    .text-button, .primary-button, .outline-button, .icon-button { border: 0; cursor: pointer; transition: transform .18s ease, background .18s ease, color .18s ease; }
+    .text-button { background: transparent; padding: 10px 12px; font-size: 13px; font-weight: 700; }
+    .primary-button { background: var(--orange); color: white; border-radius: 5px; padding: 12px 18px; font-size: 13px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; gap: 9px; }
+    .primary-button:hover { background: var(--orange-dark); transform: translateY(-2px); }
+    .outline-button { background: transparent; border: 1px solid currentColor; border-radius: 5px; padding: 11px 17px; font-size: 13px; font-weight: 700; }
+    .outline-button:hover { background: var(--ink); color: white; }
+    .icon-button { background: transparent; display: inline-grid; place-items: center; border-radius: 50%; width: 40px; height: 40px; }
+    .icon-button:hover { background: rgba(23,33,29,.08); }
+    .icon-button svg { width: 19px; height: 19px; }
+    .user-button { display: flex; align-items: center; gap: 9px; background: transparent; border: 0; cursor: pointer; font-size: 13px; font-weight: 700; }
+    .avatar { width: 34px; height: 34px; border-radius: 50%; object-fit: cover; background: var(--lime); }
+
+    .hero { min-height: 480px; position: relative; display: flex; align-items: end; overflow: hidden; color: white; background: #38443b; }
+    .hero::before { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(14,24,21,.78) 0%, rgba(14,24,21,.38) 52%, rgba(14,24,21,.12) 100%), linear-gradient(0deg, rgba(14,24,21,.36), transparent 55%), url("https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&w=2000&q=85") center 48% / cover; transform: scale(1.015); animation: hero-arrive 1.1s ease-out both; }
+    .hero-content { position: relative; z-index: 1; width: min(1200px, calc(100% - 64px)); margin: 0 auto; padding: 74px 0 58px; animation: rise-in .7s .08s both; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 9px; text-transform: uppercase; letter-spacing: 1.3px; font-size: 10px; line-height: 1.4; font-weight: 700; }
+    .eyebrow-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--lime); box-shadow: 0 0 0 4px rgba(216,242,107,.2); }
+    .hero h1 { font: 600 clamp(54px, 7.6vw, 94px)/.97 var(--display); letter-spacing: 0; max-width: 760px; margin: 22px 0 18px; }
+    .hero h1 em { font-family: var(--serif); font-weight: 400; }
+    .hero-copy { max-width: 410px; margin: 0; color: rgba(255,255,255,.82); font-size: 15px; line-height: 1.65; }
+    .hero-bottom { display: flex; align-items: end; justify-content: space-between; gap: 22px; margin-top: 30px; }
+    .hero-cta { display: flex; flex-wrap: wrap; gap: 10px; }
+    .hero .outline-button { color: white; }
+    .hero .outline-button:hover { background: white; color: var(--ink); }
+    .hero-note { display: flex; align-items: center; gap: 10px; color: rgba(255,255,255,.8); font-size: 11px; }
+    .avatar-stack { display: flex; padding-left: 5px; }
+    .avatar-stack img { width: 27px; height: 27px; border: 2px solid #38443b; border-radius: 50%; object-fit: cover; margin-left: -5px; }
+
+    .quick-find { display: grid; grid-template-columns: minmax(200px, 1fr) 1px minmax(155px, .7fr) auto; align-items: center; gap: 18px; padding: 15px 19px; margin: -27px auto 0; position: relative; z-index: 2; background: var(--white); border: 1px solid #e8e6dc; border-radius: 7px; box-shadow: 0 15px 34px rgba(31,37,29,.1); max-width: 875px; }
+    .find-field { display: flex; align-items: center; gap: 12px; min-width: 0; }
+    .find-field svg { width: 19px; height: 19px; flex: 0 0 auto; color: var(--orange); }
+    .find-field label { display: block; font-size: 10px; font-weight: 700; color: var(--muted); margin-bottom: 3px; }
+    .find-field input { border: 0; outline: 0; background: transparent; width: 100%; color: var(--ink); font-size: 13px; padding: 0; }
+    .find-field input::placeholder { color: #a1a39b; }
+    .find-divider { width: 1px; height: 35px; background: var(--line); }
+    .find-submit { white-space: nowrap; }
+
+    .section { padding: 78px 0 0; }
+    .section-head { display: flex; justify-content: space-between; align-items: end; gap: 20px; margin-bottom: 24px; }
+    .kicker { color: var(--orange-dark); text-transform: uppercase; font-size: 10px; line-height: 1.4; letter-spacing: 1.3px; font-weight: 700; margin: 0 0 9px; }
+    h2 { font: 600 38px/1.05 var(--display); letter-spacing: 0; margin: 0; }
+    .section-subtitle { color: var(--muted); font-size: 13px; margin: 9px 0 0; line-height: 1.5; }
+    .see-all { display: inline-flex; align-items: center; gap: 8px; background: none; border: 0; padding: 8px 0; cursor: pointer; font-size: 12px; font-weight: 700; border-bottom: 1px solid var(--ink); }
+    .see-all svg { width: 15px; height: 15px; transition: transform .18s; }
+    .see-all:hover svg { transform: translateX(4px); }
+    .filter-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 21px; }
+    .filter-chip { border: 1px solid var(--line); background: transparent; border-radius: 999px; padding: 8px 14px; cursor: pointer; font-size: 11px; font-weight: 700; transition: all .17s ease; }
+    .filter-chip:hover { border-color: var(--ink); }
+    .filter-chip.active { color: white; border-color: var(--ink); background: var(--ink); }
+    .event-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 19px; }
+    .event-card { min-width: 0; background: var(--white); border: 1px solid #e9e7de; border-radius: 6px; overflow: hidden; transition: transform .22s ease, box-shadow .22s ease; animation: rise-in .45s both; }
+    .event-card:focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; }
+    .event-card:hover { transform: translateY(-4px); box-shadow: 0 13px 28px rgba(31,37,29,.1); }
+    .event-image { height: 205px; position: relative; background: #d8d8ce; overflow: hidden; }
+    .event-image img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .45s ease; }
+    .event-card:hover .event-image img { transform: scale(1.045); }
+    .date-tile { position: absolute; left: 13px; top: 13px; width: 46px; height: 51px; display: flex; flex-direction: column; justify-content: center; align-items: center; background: var(--white); border-radius: 4px; box-shadow: 0 3px 9px #1112; }
+    .date-tile strong { font: 700 18px/1 var(--display); }
+    .date-tile span { color: var(--orange-dark); font-size: 8px; font-weight: 700; text-transform: uppercase; letter-spacing: .8px; margin-top: 4px; }
+    .save-button { position: absolute; right: 12px; top: 12px; width: 36px; height: 36px; display: grid; place-items: center; border: 0; border-radius: 50%; background: var(--white); cursor: pointer; box-shadow: 0 3px 9px #1112; }
+    .save-button svg { width: 17px; height: 17px; transition: transform .18s ease; }
+    .save-button:hover svg { transform: scale(1.12); }
+    .save-button.saved { color: var(--orange); }
+    .save-button.saved svg { fill: currentColor; }
+    .event-info { padding: 16px 16px 15px; }
+    .event-meta { color: var(--muted); display: flex; gap: 8px; align-items: center; font-size: 10px; font-weight: 600; }
+    .event-meta .bullet { width: 3px; height: 3px; border-radius: 50%; background: var(--orange); }
+    .event-info h3 { font: 600 19px/1.2 var(--display); letter-spacing: 0; margin: 10px 0 8px; }
+    .event-info p { min-height: 18px; margin: 0; color: var(--muted); font-size: 11px; }
+    .event-foot { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 17px; padding-top: 12px; border-top: 1px solid #eeece4; }
+    .event-price { font-size: 11px; font-weight: 700; }
+    .event-price span { color: var(--muted); font-weight: 500; }
+    .small-action { border: 0; padding: 7px 10px; border-radius: 4px; background: var(--lime); cursor: pointer; font-size: 10px; font-weight: 700; transition: background .16s ease; }
+    .small-action:hover { background: #c5e74b; }
+    .empty-state { padding: 40px 18px; border: 1px dashed #c9c9bd; text-align: center; color: var(--muted); border-radius: 6px; grid-column: 1/-1; font-size: 13px; }
+
+    .clubs-band { background: #eaece3; margin-top: 88px; padding: 64px 0 70px; }
+    .club-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .club-card { display: grid; grid-template-columns: 90px 1fr auto; align-items: center; gap: 15px; background: var(--white); padding: 12px; border: 1px solid #e1e2d9; border-radius: 5px; transition: transform .18s ease; }
+    .club-card:hover { transform: translateY(-3px); }
+    .club-card img { width: 90px; height: 90px; border-radius: 3px; object-fit: cover; }
+    .club-card h3 { font: 600 16px/1.15 var(--display); margin: 0 0 6px; }
+    .club-card p { color: var(--muted); font-size: 10px; line-height: 1.45; margin: 0; }
+    .club-count { display: inline-flex; align-items: center; gap: 5px; margin-top: 9px; color: #526147; font-size: 9px; font-weight: 700; }
+    .club-count svg { width: 13px; height: 13px; }
+    .club-arrow { width: 32px; height: 32px; display: grid; place-items: center; border: 1px solid var(--line); border-radius: 50%; }
+    .club-arrow svg { width: 15px; height: 15px; }
+
+    .join-strip { margin: 75px auto 80px; position: relative; overflow: hidden; background: var(--blue); color: white; padding: 35px 40px; border-radius: 6px; display: flex; justify-content: space-between; align-items: center; gap: 25px; }
+    .join-strip::after { content: "N"; position: absolute; right: 22%; top: -90px; font: 700 270px/.9 var(--display); color: rgba(255,255,255,.08); transform: rotate(-10deg); pointer-events: none; }
+    .join-strip > div, .join-strip button { position: relative; z-index: 1; }
+    .join-strip h2 { font-size: 29px; }
+    .join-strip p { color: rgba(255,255,255,.76); font-size: 12px; margin: 8px 0 0; }
+    .join-strip .primary-button { background: var(--lime); color: var(--ink); }
+    .join-strip .primary-button:hover { background: #c5e74b; }
+
+    footer { border-top: 1px solid var(--line); padding: 24px 0; color: var(--muted); font-size: 10px; }
+    .footer-row { display: flex; justify-content: space-between; align-items: center; gap: 20px; }
+    .footer-brand { color: var(--ink); font: 700 15px var(--display); }
+    .footer-links { display: flex; gap: 20px; }
+
+    .event-details { padding-top: 26px; }
+    .event-detail-cover { height: 370px; position: relative; overflow: hidden; border-radius: 6px; background: #39443d; color: white; }
+    .event-detail-cover > img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .event-cover-shade { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: space-between; padding: 20px 24px 27px; background: linear-gradient(180deg,rgba(13,20,17,.47),transparent 38%,rgba(13,20,17,.82)); }
+    .detail-back { display: inline-flex; align-items: center; gap: 8px; align-self: flex-start; background: rgba(255,254,250,.94); color: var(--ink); border: 0; border-radius: 4px; padding: 10px 13px; font-size: 11px; font-weight: 700; cursor: pointer; }
+    .detail-back:hover { background: white; transform: translateX(-2px); }
+    .detail-back svg { width: 15px; height: 15px; }
+    .event-cover-copy { max-width: 760px; }
+    .detail-category { display: inline-flex; align-items: center; border-radius: 3px; padding: 6px 9px; color: var(--ink); background: var(--lime); font-size: 9px; line-height: 1; letter-spacing: .8px; text-transform: uppercase; font-weight: 700; }
+    .event-cover-copy h1 { margin: 12px 0 7px; font: 600 clamp(34px,5vw,58px)/1.02 var(--display); letter-spacing: 0; }
+    .event-cover-copy p { margin: 0; max-width: 590px; color: rgba(255,255,255,.86); font-size: 13px; line-height: 1.6; }
+    .detail-layout { display: grid; grid-template-columns: minmax(0,1.55fr) minmax(285px,.8fr); align-items: start; gap: 36px; margin: 31px 0 72px; }
+    .detail-main { min-width: 0; }
+    .detail-section { padding: 23px 0; border-bottom: 1px solid var(--line); }
+    .detail-section:first-child { padding-top: 0; }
+    .detail-section h2 { font-size: 25px; }
+    .detail-section > p { max-width: 710px; color: #555f56; font-size: 13px; line-height: 1.8; margin: 13px 0 0; }
+    .detail-facts { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 17px 22px; margin-top: 18px; }
+    .detail-fact { display: flex; gap: 10px; align-items: flex-start; }
+    .detail-fact svg { width: 19px; height: 19px; flex: 0 0 auto; color: var(--orange-dark); }
+    .detail-fact strong { display: block; font-size: 11px; line-height: 1.4; }
+    .detail-fact span { display: block; margin-top: 3px; color: var(--muted); font-size: 10px; line-height: 1.5; }
+    .detail-schedule { margin-top: 15px; }
+    .schedule-row { display: grid; grid-template-columns: 90px 1fr; gap: 13px; padding: 12px 0; border-top: 1px solid #e8e7df; }
+    .schedule-row time { color: var(--orange-dark); font-size: 10px; font-weight: 700; }
+    .schedule-row strong { display: block; font-size: 11px; }
+    .schedule-row p { margin: 4px 0 0; color: var(--muted); font-size: 10px; line-height: 1.5; }
+    .detail-highlights { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 10px 18px; padding: 0; margin: 15px 0 0; list-style: none; }
+    .detail-highlights li { display: flex; gap: 8px; color: #4f5a51; font-size: 11px; line-height: 1.5; }
+    .detail-highlights li::before { content: "+"; color: var(--orange-dark); font-weight: 700; }
+    .organiser-row { display: flex; align-items: center; gap: 13px; margin-top: 15px; }
+    .organiser-mark { width: 44px; height: 44px; display: grid; place-items: center; border-radius: 50% 50% 50% 12%; transform: rotate(-8deg); background: var(--lime); font: 700 18px var(--display); }
+    .organiser-mark span { transform: rotate(8deg); }
+    .organiser-row strong { display: block; font-size: 12px; }
+    .organiser-row span { display: block; margin-top: 4px; color: var(--muted); font-size: 10px; }
+    .detail-booking { position: sticky; top: 20px; padding: 20px; background: var(--white); border: 1px solid #e5e3d9; border-radius: 6px; box-shadow: 0 9px 24px rgba(31,37,29,.06); }
+    .booking-price { display: flex; align-items: baseline; gap: 6px; margin-bottom: 17px; }
+    .booking-price strong { font: 600 30px/1 var(--display); }
+    .booking-price span { color: var(--muted); font-size: 10px; }
+    .booking-line { display: flex; gap: 11px; padding: 12px 0; border-top: 1px solid #eeece4; }
+    .booking-line svg { width: 17px; height: 17px; flex: 0 0 auto; color: var(--orange-dark); }
+    .booking-line strong { display: block; font-size: 10px; }
+    .booking-line span { display: block; margin-top: 4px; color: var(--muted); font-size: 10px; line-height: 1.45; }
+    .seat-meter { height: 5px; background: #e7e8df; border-radius: 99px; overflow: hidden; margin: 8px 0 5px; }
+    .seat-meter span { display: block; height: 100%; background: var(--orange); border-radius: inherit; transition: width .25s ease; }
+    .seat-caption { color: var(--muted); font-size: 9px; }
+    .detail-booking .primary-button, .detail-booking .outline-button { width: 100%; margin-top: 10px; }
+    .detail-booking .outline-button { color: var(--ink); border-color: var(--line); }
+    .detail-booking .outline-button.saved { color: var(--orange-dark); border-color: var(--orange); background: #fff2ed; }
+    .detail-booking .primary-button:disabled { background: #a4a89c; cursor: not-allowed; transform: none; }
+    .booking-deadline { margin: 11px 0 0; text-align: center; color: var(--muted); font-size: 9px; line-height: 1.5; }
+    .detail-not-found { min-height: 440px; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; }
+    .detail-not-found h1 { font: 600 40px/1.05 var(--display); margin: 14px 0 8px; }
+    .detail-not-found p { max-width: 430px; color: var(--muted); font-size: 13px; line-height: 1.7; margin: 0 0 20px; }
+
+    .dashboard { min-height: calc(100vh - 78px); padding: 45px 0 80px; }
+    .organizer-tools { margin: 25px 0 0; padding: 20px; border: 1px solid var(--line); border-radius: 6px; background: var(--white); }
+    .organizer-tools-head { display: flex; justify-content: space-between; align-items: end; gap: 18px; }
+    .organizer-tools-head h2 { font-size: 24px; }
+    .organizer-select { min-width: 220px; }
+    .organizer-form { margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--line); }
+    .organizer-form-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 13px; }
+    .organizer-form label { display: block; font-size: 10px; font-weight: 700; }
+    .organizer-form input, .organizer-form textarea, .organizer-form select, .organizer-select { width: 100%; margin-top: 6px; padding: 10px; border: 1px solid #d9d9cf; border-radius: 4px; background: white; color: var(--ink); font: 11px var(--sans); }
+    .organizer-form textarea { min-height: 76px; resize: vertical; }
+    .organizer-form .wide { grid-column: 1/-1; }
+    .organizer-form-actions { display: flex; gap: 9px; margin-top: 14px; }
+    .organizer-event-list { margin-top: 16px; border-top: 1px solid var(--line); }
+    .organizer-event-row { display: flex; align-items: center; justify-content: space-between; gap: 15px; padding: 12px 0; border-bottom: 1px solid #eeece4; }
+    .organizer-event-row h3 { margin: 0; font: 600 13px var(--display); }
+    .organizer-event-row p { margin: 4px 0 0; color: var(--muted); font-size: 10px; }
+    .organizer-event-actions { display: flex; gap: 7px; }
+    .dash-top { display: flex; justify-content: space-between; align-items: end; gap: 25px; padding-bottom: 28px; border-bottom: 1px solid var(--line); }
+    .dash-user { display: flex; gap: 15px; align-items: center; }
+    .dash-user .avatar { width: 58px; height: 58px; }
+    .dash-user h1 { font: 600 32px/1.1 var(--display); margin: 0; }
+    .dash-user p { margin: 5px 0 0; color: var(--muted); font-size: 12px; }
+    .dash-stats { display: flex; gap: 10px; }
+    .stat { min-width: 102px; padding: 12px 15px; background: #eceee5; border-radius: 4px; }
+    .stat strong { display: block; font: 600 22px/1 var(--display); }
+    .stat span { display: block; margin-top: 5px; color: var(--muted); font-size: 9px; }
+    .dash-tabs { display: flex; gap: 23px; border-bottom: 1px solid var(--line); margin-top: 28px; }
+    .dash-tab { background: transparent; border: 0; border-bottom: 2px solid transparent; padding: 0 0 12px; margin-bottom: -1px; color: var(--muted); cursor: pointer; font-size: 12px; font-weight: 700; }
+    .dash-tab.active { color: var(--ink); border-color: var(--orange); }
+    .dash-events { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 22px; }
+    .ticket-card { display: grid; grid-template-columns: 1fr auto; gap: 20px; padding: 19px; background: var(--white); border: 1px solid #e4e3db; border-radius: 6px; }
+    .ticket-card h3 { margin: 8px 0 5px; font: 600 18px/1.2 var(--display); }
+    .ticket-card p { margin: 0; color: var(--muted); font-size: 11px; }
+    .ticket-card .ticket-label { display: inline-flex; background: var(--lime); border-radius: 3px; padding: 5px 7px; font-size: 8px; font-weight: 700; letter-spacing: .6px; text-transform: uppercase; }
+    .ticket-card .ticket-code { margin-top: 13px; font-size: 9px; color: #868c80; letter-spacing: .4px; }
+    .qr-box { width: 94px; height: 94px; padding: 6px; align-self: center; object-fit: contain; border: 1px solid #e7e6df; border-radius: 4px; background: white; }
+    .qr-grid { display: grid; width: 100%; height: 100%; grid-template-columns: repeat(21, 1fr); grid-template-rows: repeat(21, 1fr); gap: 1px; }
+    .qr-grid i { display: block; background: transparent; }
+    .qr-grid i.on { background: var(--ink); }
+    .modal-backdrop { position: fixed; inset: 0; display: grid; place-items: center; padding: 20px; background: rgba(17,24,21,.62); z-index: 20; animation: fade-in .18s both; }
+    .auth-modal { position: relative; width: min(430px, 100%); background: var(--paper); border-radius: 7px; padding: 30px; box-shadow: 0 25px 90px #0004; animation: rise-in .22s both; }
+    .modal-close { position: absolute; right: 14px; top: 14px; }
+    .auth-mode { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; margin: 20px 0 16px; padding: 4px; background: #e9e9e0; border-radius: 4px; }
+    .auth-mode button { border: 0; border-radius: 3px; padding: 9px; color: var(--muted); background: transparent; cursor: pointer; font-size: 11px; font-weight: 700; }
+    .auth-mode button.active { color: var(--ink); background: var(--white); box-shadow: 0 1px 4px rgba(23,33,29,.1); }
+    .auth-modal h2 { font-size: 29px; margin: 19px 0 8px; }
+    .auth-modal > p { font-size: 12px; line-height: 1.6; color: var(--muted); margin: 0 0 22px; }
+    .mock-label { display: inline-flex; align-items: center; gap: 7px; color: #69705f; background: #e9eddb; padding: 7px 9px; border-radius: 3px; font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: .6px; }
+    .mock-label svg { width: 13px; height: 13px; }
+    .auth-modal label { display: block; margin: 15px 0 6px; font-size: 10px; font-weight: 700; }
+    .auth-modal input { width: 100%; height: 43px; padding: 0 12px; border: 1px solid #d9d9cf; border-radius: 4px; outline: none; background: var(--white); font-size: 12px; }
+    .auth-modal input:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(66,98,233,.12); }
+    .google-button { width: 100%; margin-top: 20px; padding: 12px; display: flex; align-items: center; justify-content: center; gap: 10px; border: 1px solid #d5d6d1; border-radius: 4px; cursor: pointer; background: white; font-size: 12px; font-weight: 700; transition: background .16s; }
+    .google-button:hover { background: #f0f0eb; }
+    .google-g { color: #4285f4; font: 700 17px Arial, sans-serif; }
+    .auth-fine { text-align: center; font-size: 9px !important; margin: 13px 0 0 !important; }
+    .toast { position: fixed; z-index: 30; bottom: 24px; left: 50%; transform: translate(-50%, 20px); opacity: 0; pointer-events: none; background: var(--ink); color: white; padding: 12px 17px; border-radius: 4px; font-size: 11px; box-shadow: 0 8px 24px #0002; transition: opacity .2s, transform .2s; }
+    .toast.show { transform: translate(-50%, 0); opacity: 1; }
+
+    @keyframes rise-in { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes hero-arrive { from { transform: scale(1.07); } to { transform: scale(1.015); } }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; } }
+    @media (max-width: 850px) {
+      .wrap { width: min(100% - 40px, 680px); }
+      .nav-links { gap: 18px; }
+      .nav-links a { font-size: 12px; }
+      .hero-content { width: min(100% - 40px, 680px); }
+      .event-grid { grid-template-columns: repeat(2, 1fr); }
+      .club-grid { grid-template-columns: 1fr; }
+      .club-card { grid-template-columns: 82px 1fr auto; }
+      .club-card img { width: 82px; height: 82px; }
+      .dash-top { align-items: start; flex-direction: column; }
+      .organizer-tools-head { align-items: stretch; flex-direction: column; }
+      .detail-layout { grid-template-columns: minmax(0,1fr) 285px; gap: 23px; }
+      .event-detail-cover { height: 340px; }
+    }
+    @media (max-width: 600px) {
+      .wrap { width: calc(100% - 36px); }
+      .site-header { height: 68px; }
+      .nav { gap: 10px; }
+      .brand { font-size: 20px; }
+      .brand-mark { width: 27px; }
+      .nav-links { display: none; }
+      .nav-actions { gap: 4px; }
+      .text-button { padding-inline: 8px; font-size: 12px; }
+      .nav-actions .primary-button { padding: 10px 12px; font-size: 11px; }
+      .user-button span { display: none; }
+      .hero { min-height: 505px; }
+      .hero::before { background-position: 57% center; }
+      .hero-content { width: calc(100% - 36px); padding: 56px 0 56px; }
+      .hero h1 { font-size: clamp(52px, 16vw, 75px); max-width: 440px; margin-top: 19px; }
+      .hero-copy { max-width: 340px; font-size: 13px; }
+      .hero-bottom { align-items: start; flex-direction: column; margin-top: 24px; }
+      .hero-note { display: none; }
+      .quick-find { width: calc(100% - 36px); grid-template-columns: 1fr auto; gap: 11px; padding: 12px; margin-top: -28px; }
+      .find-divider, .find-field:nth-of-type(2) { display: none; }
+      .find-field { gap: 9px; }
+      .find-field svg { width: 17px; height: 17px; }
+      .find-field input { font-size: 12px; }
+      .find-submit { padding: 11px 13px; font-size: 11px; }
+      .section { padding-top: 59px; }
+      .section-head { align-items: start; }
+      h2 { font-size: 32px; }
+      .section-head > .see-all { display: none; }
+      .filter-row { flex-wrap: nowrap; overflow-x: auto; margin-right: -18px; padding: 0 18px 4px 0; scrollbar-width: none; }
+      .filter-chip { white-space: nowrap; }
+      .event-grid { grid-template-columns: 1fr; gap: 13px; }
+      .event-card { display: grid; grid-template-columns: 38% 1fr; min-height: 154px; }
+      .event-image { height: 100%; min-height: 154px; }
+      .date-tile { left: 9px; top: 9px; width: 39px; height: 43px; }
+      .date-tile strong { font-size: 16px; }
+      .save-button { right: 8px; top: 8px; width: 31px; height: 31px; }
+      .event-info { padding: 12px 11px 10px; display: flex; flex-direction: column; }
+      .event-meta { font-size: 9px; gap: 6px; }
+      .event-info h3 { font-size: 16px; margin: 8px 0 5px; }
+      .event-info p { font-size: 10px; }
+      .event-foot { margin-top: auto; padding-top: 9px; }
+      .clubs-band { margin-top: 59px; padding: 49px 0 53px; }
+      .club-card { grid-template-columns: 72px 1fr auto; gap: 11px; padding: 9px; }
+      .club-card img { width: 72px; height: 72px; }
+      .club-card h3 { font-size: 14px; }
+      .join-strip { margin: 50px auto 56px; padding: 25px 21px; align-items: start; flex-direction: column; }
+      .join-strip h2 { font-size: 25px; }
+      .join-strip::after { right: -25px; top: -50px; }
+      .footer-row { flex-wrap: wrap; }
+      .footer-links { gap: 12px; }
+      .dashboard { min-height: calc(100vh - 68px); padding-top: 32px; }
+      .organizer-tools { padding: 14px; }
+      .organizer-form-grid { grid-template-columns: 1fr; }
+      .organizer-form .wide { grid-column: auto; }
+      .organizer-event-row { align-items: start; flex-direction: column; }
+      .event-details { padding-top: 14px; }
+      .event-detail-cover { height: 360px; }
+      .event-cover-shade { padding: 13px 13px 19px; }
+      .event-cover-copy h1 { font-size: 36px; }
+      .event-cover-copy p { font-size: 11px; }
+      .detail-layout { grid-template-columns: 1fr; gap: 24px; margin-top: 23px; }
+      .detail-booking { position: static; order: -1; padding: 16px; }
+      .detail-section h2 { font-size: 22px; }
+      .detail-facts { gap: 14px 10px; }
+      .detail-fact { gap: 7px; }
+      .detail-highlights { grid-template-columns: 1fr; gap: 8px; }
+      .schedule-row { grid-template-columns: 72px 1fr; gap: 9px; }
+      .detail-not-found { min-height: 390px; }
+      .dash-user h1 { font-size: 26px; }
+      .dash-user .avatar { width: 50px; height: 50px; }
+      .dash-stats { width: 100%; }
+      .stat { flex: 1; min-width: 0; }
+      .dash-events { grid-template-columns: 1fr; }
+      .ticket-card { grid-template-columns: 1fr auto; padding: 14px; gap: 10px; }
+      .qr-box { width: 78px; height: 78px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap nav">
+      <a class="brand" href="#top" aria-label="Nexus Club home"><span class="brand-mark"><span>n</span></span><span>nexus club<span style="color:var(--orange)">.</span></span></a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="#events" data-return>Discover</a>
+        <a href="#clubs" data-return>Clubs</a>
+        <a href="#about" data-return>About</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="text-button" id="savedNav" aria-label="Open your saved events" hidden>Saved</button>
+        <button class="text-button" id="signInButton">Log in</button>
+        <button class="primary-button" id="joinButton">Join free <span aria-hidden="true">↗</span></button>
+        <button class="user-button" id="userButton" hidden aria-label="Open your dashboard"><img class="avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=160&h=160&q=80" alt=""><span class="user-short-name"></span></button>
+      </div>
+    </div>
+  </header>
+
+  <main id="landing">
+    <section class="hero" id="top" aria-label="Nexus Club event discovery">
+      <div class="hero-content">
+        <span class="eyebrow"><span class="eyebrow-dot"></span> The city is better together</span>
+        <h1>Your people<br>are <em>out there.</em></h1>
+        <p class="hero-copy">Find the nights, ideas, and little-known corners that make a city feel like yours.</p>
+        <div class="hero-bottom">
+          <div class="hero-cta"><a class="primary-button" href="#events">Find your next thing <span aria-hidden="true">↘</span></a><a class="outline-button" href="#clubs">Explore clubs</a></div>
+          <div class="hero-note"><span class="avatar-stack" aria-hidden="true"><img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=80&h=80&q=75" alt=""><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=80&h=80&q=75" alt=""><img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=80&h=80&q=75" alt=""></span><span>Good plans. Better company.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <form class="quick-find" id="searchForm" role="search">
+      <div class="find-field">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"></circle><path d="m16 16 4.5 4.5"></path></svg>
+        <div style="min-width:0;flex:1"><label for="searchInput">Find an event</label><input id="searchInput" type="search" placeholder="Jazz, pottery, run club..." autocomplete="off"></div>
+      </div>
+      <span class="find-divider" aria-hidden="true"></span>
+      <div class="find-field">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z"></path><circle cx="12" cy="10" r="2.3"></circle></svg>
+        <div><label for="locationInput">Around</label><input id="locationInput" type="text" value="Brooklyn, NY" aria-label="Location"></div>
+      </div>
+      <button class="primary-button find-submit" type="submit">Search <span aria-hidden="true">→</span></button>
+    </form>
+
+    <section class="section wrap" id="events">
+      <div class="section-head">
+        <div><p class="kicker">Plans worth leaving home for</p><h2>Coming up soon</h2><p class="section-subtitle">Handpicked happenings from people who make this place.</p></div>
+        <button class="see-all" id="clearFilters">View all <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"></path></svg></button>
+      </div>
+      <div class="filter-row" role="group" aria-label="Filter events">
+        <button class="filter-chip active" data-filter="All">All plans</button><button class="filter-chip" data-filter="Music">Music</button><button class="filter-chip" data-filter="Art">Art & making</button><button class="filter-chip" data-filter="Outdoors">Outdoors</button><button class="filter-chip" data-filter="Social">Good company</button>
+      </div>
+      <div class="event-grid" id="eventGrid" aria-live="polite"></div>
+    </section>
+
+    <section class="clubs-band" id="clubs">
+      <div class="wrap">
+        <div class="section-head">
+          <div><p class="kicker">A little place to belong</p><h2>Find your kind of people</h2><p class="section-subtitle">Small communities. Very good group chats.</p></div>
+          <button class="see-all" id="clubToast">All clubs <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"></path></svg></button>
+        </div>
+        <div class="club-grid" id="clubGrid"></div>
+      </div>
+    </section>
+
+    <section class="join-strip wrap" id="about">
+      <div><h2>Good things happen<br>when you show up.</h2><p>Your next favorite person is probably already going.</p></div>
+      <button class="primary-button" id="joinCta">Find your people <span aria-hidden="true">↗</span></button>
+    </section>
+  </main>
+
+  <main class="event-details wrap" id="eventDetails" hidden></main>
+
+  <main class="dashboard wrap" id="dashboard" hidden>
+    <div class="dash-top">
+      <div class="dash-user"><img class="avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=160&h=160&q=80" alt=""><div><p class="kicker">Your Nexus space</p><h1>Hey, <span id="dashName">Alex</span>.</h1><p>Your plans, all in one place.</p></div></div>
+      <div class="dash-stats"><div class="stat"><strong id="ticketCount">0</strong><span>upcoming plans</span></div><div class="stat"><strong id="savedCount">0</strong><span>saved for later</span></div></div>
+    </div>
+    <section class="organizer-tools" id="organizerTools" hidden>
+      <div class="organizer-tools-head"><div><p class="kicker">For the people who make it happen</p><h2>Organizer tools</h2></div><div class="organizer-controls"><label class="kicker" for="organizerClubSelect">Club</label><select class="organizer-select" id="organizerClubSelect"></select><button class="outline-button" id="newOrganizerEvent" type="button">New event</button></div></div>
+      <form class="organizer-form" id="organizerEventForm" hidden>
+        <div class="organizer-form-grid">
+          <label>Event title<input name="title" required maxlength="140"></label>
+          <label>Event URL slug<input name="slug" required pattern="[a-z0-9]+(-[a-z0-9]+)*" maxlength="80"></label>
+          <label>Category<input name="category" required maxlength="50"></label>
+          <label>Status<select name="status"><option value="draft">Draft</option><option value="published">Published</option><option value="cancelled">Cancelled</option></select></label>
+          <label>Starts at<input name="starts_at" type="datetime-local" required></label>
+          <label>Ends at<input name="ends_at" type="datetime-local" required></label>
+          <label>Registration deadline<input name="registration_deadline" type="datetime-local" required></label>
+          <label>Capacity<input name="capacity" type="number" min="1" max="100000" required></label>
+          <label>Price (cents)<input name="price_cents" type="number" min="0" value="0" required></label>
+          <label>Venue<input name="venue_name" required maxlength="160"></label>
+          <label>Neighborhood<input name="neighborhood" required maxlength="160"></label>
+          <label>Address<input name="address" required maxlength="300"></label>
+          <label>Cover image URL or image ID<input name="image_url" type="text"></label>
+          <label>Image description<input name="image_alt" maxlength="240"></label>
+          <label class="wide">Description<textarea name="description" required minlength="20" maxlength="5000"></textarea></label>
+          <label>Highlights (one per line)<textarea name="highlights"></textarea></label>
+          <label>Schedule (time | title | description per line)<textarea name="schedule"></textarea></label>
+        </div>
+        <div class="organizer-form-actions"><button class="primary-button" type="submit">Save event</button><button class="outline-button" id="cancelOrganizerEdit" type="button">Cancel</button></div>
+      </form>
+      <div class="organizer-event-list" id="organizerEventList"></div>
+    </section>
+    <div class="dash-tabs" role="tablist" aria-label="Your activity">
+      <button class="dash-tab active" role="tab" aria-selected="true" data-dashboard-tab="tickets">My tickets</button>
+      <button class="dash-tab" role="tab" aria-selected="false" data-dashboard-tab="saved">Saved events</button>
+    </div>
+    <div class="dash-events" id="dashboardEvents" role="tabpanel"></div>
+  </main>
+
+  <footer><div class="wrap footer-row"><span class="footer-brand">nexus club.</span><span>Make a little room for new things.</span><div class="footer-links"><a href="#events" data-return>Discover</a><a href="#clubs" data-return>Clubs</a><button class="text-button" id="signOutButton" hidden>Log out</button></div></div></footer>
+
+  <div class="modal-backdrop" id="authBackdrop" hidden>
+    <section class="auth-modal" role="dialog" aria-modal="true" aria-labelledby="authTitle">
+      <button class="icon-button modal-close" id="closeAuth" aria-label="Close sign in"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m6 6 12 12M18 6 6 18"></path></svg></button>
+      <span class="brand"><span class="brand-mark"><span>n</span></span><span>nexus club<span style="color:var(--orange)">.</span></span></span>
+      <div class="auth-mode" role="tablist" aria-label="Account access"><button type="button" class="active" role="tab" aria-selected="true" data-auth-mode="signup">Sign up</button><button type="button" role="tab" aria-selected="false" data-auth-mode="login">Log in</button></div>
+      <h2 id="authTitle">Make it a plan.</h2>
+      <p id="authDescription">Sign up to save the good ones, keep your tickets together, and meet your next favorite people.</p>
+      <div id="nameField"><label for="nameInput">Your name</label><input id="nameInput" type="text" placeholder="Your name" autocomplete="name" maxlength="80"></div>
+      <label for="emailInput">Email</label><input id="emailInput" type="email" placeholder="you@example.com" autocomplete="email">
+      <div id="passwordField"><label for="passwordInput">Password</label><input id="passwordInput" type="password" placeholder="At least 8 characters" autocomplete="current-password" minlength="8"></div>
+      <button class="primary-button" id="authSubmit" type="button" style="width:100%;margin-top:20px">Sign up with email</button>
+      <button class="google-button" id="googleSignIn"><span class="google-g">G</span> Continue with Google</button>
+      <p class="auth-fine">Sign in to keep your tickets, saved events, and club plans together.</p>
+    </section>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/client.js"></script>
+  <script>
+    let events = [];
+    let clubs = [];
+    let session = null;
+    let user = null;
+    let saved = [];
+    let tickets = [];
+    let joinedClubs = new Set();
+    let clubMemberships = [];
+    let organizerEvents = [];
+    let editingEventSlug = "";
+    let activeFilter = "All";
+    let searchTerm = "";
+    let dashTab = "tickets";
+    let authMode = "signup";
+    let pendingRegistration = sessionStorage.getItem("nexus-pending-registration") || "";
+    let pendingBookmark = sessionStorage.getItem("nexus-pending-bookmark") || "";
+    let pendingClub = sessionStorage.getItem("nexus-pending-club") || "";
+    let toastTimer;
+
+    const eventGrid = document.getElementById("eventGrid");
+    const dashboard = document.getElementById("dashboard");
+    const landing = document.getElementById("landing");
+    const authBackdrop = document.getElementById("authBackdrop");
+    const toastElement = document.getElementById("toast");
+    const photo = source => !source ? "https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&w=900&q=80" : source.startsWith("http") ? source : `https://images.unsplash.com/${source}?auto=format&fit=crop&w=900&q=80`;
+    const api = (path, options) => window.NexusApi.request(path, options);
+    const escapeHtml = value => String(value).replace(/[&<>"']/g, char => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[char]));
+
+    function showToast(message) {
+      toastElement.textContent = message;
+      toastElement.classList.add("show");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toastElement.classList.remove("show"), 2500);
+    }
+
+    async function loadPublicData() {
+      const [eventResult, clubResult] = await Promise.all([api("/api/events"), api("/api/clubs")]);
+      events = eventResult.events;
+      clubs = clubResult.clubs;
+      renderEvents();
+      renderClubs();
+    }
+
+    async function loadAccountData() {
+      session = window.NexusApi.getSession();
+      if (!session) {
+        user = null;
+        saved = [];
+        tickets = [];
+        joinedClubs = new Set();
+        clubMemberships = [];
+      } else {
+        const [profileResult, bookmarkResult, ticketResult, clubResult] = await Promise.all([
+          api("/api/users/me"),
+          api("/api/users/me/bookmarks"),
+          api("/api/users/me/tickets"),
+          api("/api/users/me/clubs")
+        ]);
+        user = profileResult.user;
+        saved = bookmarkResult.bookmarks.map(bookmark => bookmark.event.slug);
+        tickets = ticketResult.tickets.map(ticket => ({ eventId: ticket.event.slug, code: ticket.ticket_code, ticketId: ticket.id, qr: ticket.qr_code }));
+        clubMemberships = clubResult.clubs;
+        joinedClubs = new Set(clubMemberships.map(club => club.slug));
+      }
+      setUserUI();
+      renderOrganizerTools();
+      renderEvents();
+      if (user) renderDashboard();
+      const eventSlug = getEventIdFromUrl();
+      if (eventSlug !== null) renderEventDetails(eventSlug);
+    }
+
+    function clearPendingActions() {
+      pendingRegistration = "";
+      pendingBookmark = "";
+      pendingClub = "";
+      sessionStorage.removeItem("nexus-pending-registration");
+      sessionStorage.removeItem("nexus-pending-bookmark");
+      sessionStorage.removeItem("nexus-pending-club");
+    }
+
+    async function completePendingActions() {
+      const registration = pendingRegistration || sessionStorage.getItem("nexus-pending-registration") || "";
+      const bookmark = pendingBookmark || sessionStorage.getItem("nexus-pending-bookmark") || "";
+      const club = pendingClub || sessionStorage.getItem("nexus-pending-club") || "";
+      clearPendingActions();
+      if (registration) {
+        const completed = await register(registration);
+        if (completed || tickets.some(ticket => ticket.eventId === registration)) showDashboard("tickets");
+      } else if (bookmark) {
+        await toggleBookmark(bookmark);
+      } else if (club) {
+        await joinClub(club);
+      } else {
+        showDashboard("tickets");
+      }
+    }
+
+    async function initializeApp() {
+      eventGrid.innerHTML = `<div class="empty-state">Loading events...</div>`;
+      try {
+        await window.NexusApi.init();
+        session = window.NexusApi.getSession();
+        window.NexusApi.onSessionChange(nextSession => {
+          session = nextSession;
+          if (!nextSession) {
+            user = null;
+            saved = [];
+            tickets = [];
+            joinedClubs = new Set();
+            setUserUI();
+            renderEvents();
+            if (!dashboard.hidden) showLanding("#top");
+          }
+        });
+        await loadPublicData();
+        await loadAccountData();
+        if (getEventIdFromUrl() !== null) syncRoute();
+        else if (user) showDashboard("tickets");
+        if (session) await completePendingActions();
+      } catch (error) {
+        eventGrid.innerHTML = `<div class="empty-state">Events are temporarily unavailable. Please try again in a moment.</div>`;
+        showToast(error.message || "Could not connect to Nexus Club.");
+      }
+    }
+
+    function renderEvents() {
+      const visible = events.filter(event => (activeFilter === "All" || event.category === activeFilter) && `${event.title} ${event.category} ${event.place} ${event.neighborhood}`.toLowerCase().includes(searchTerm.toLowerCase()));
+      eventGrid.innerHTML = visible.length ? visible.map((event, index) => `
+        <article class="event-card" data-event-card="${event.slug}" tabindex="0" role="group" aria-label="Open event details: ${escapeHtml(event.title)}" style="animation-delay:${index * 45}ms">
+          <div class="event-image"><img src="${photo(event.image)}" alt="${escapeHtml(event.alt)}" loading="lazy"><div class="date-tile"><strong>${event.date}</strong><span>${event.month}</span></div>
+            <button class="save-button ${saved.includes(event.slug) ? "saved" : ""}" data-save="${event.slug}" aria-label="${saved.includes(event.slug) ? "Remove" : "Save"} ${escapeHtml(event.title)}" aria-pressed="${saved.includes(event.slug)}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M20.8 8.7c0 5.2-8.8 10.1-8.8 10.1S3.2 13.9 3.2 8.7a4.5 4.5 0 0 1 8-2.8 4.5 4.5 0 0 1 9.6 2.8Z"></path></svg></button>
+          </div>
+          <div class="event-info"><div class="event-meta"><span>${event.day} · ${event.time}</span><i class="bullet"></i><span>${event.category}</span></div><h3>${escapeHtml(event.title)}</h3><p>${escapeHtml(event.place)} · ${escapeHtml(event.neighborhood)}</p>
+            <div class="event-foot"><span class="event-price">${event.price} <span>/ person</span></span><button class="small-action" data-register="${event.slug}">I'm in <span aria-hidden="true">↗</span></button></div>
+          </div>
+        </article>`).join("") : `<div class="empty-state">No plans match that search yet. Try another word or clear your filters.</div>`;
+    }
+
+    function availableSeats(event) {
+      return Math.max(0, event.capacity - event.registeredCount);
+    }
+
+    function renderEventDetails(eventId) {
+      const container = document.getElementById("eventDetails");
+      const event = events.find(item => item.slug === eventId);
+      if (!event) {
+        container.innerHTML = `<section class="detail-not-found"><span class="detail-category">Event unavailable</span><h1>We couldn't find that event.</h1><p>This event may have moved or the link may be incorrect. Head back to the event list to find another plan.</p><button class="primary-button" data-detail-back>Back to events <span aria-hidden="true">↗</span></button></section>`;
+        return;
+      }
+
+      const seats = availableSeats(event);
+      const registered = tickets.some(ticket => ticket.eventId === event.slug);
+      const bookmarked = saved.includes(event.slug);
+      const filled = event.registeredCount;
+      const fillPercent = Math.min(100, Math.round(filled / event.capacity * 100));
+      const soldOut = seats === 0;
+      const icon = path => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">${path}</svg>`;
+
+      container.innerHTML = `
+        <section class="event-detail-cover">
+          <img src="${photo(event.image)}" alt="${escapeHtml(event.alt)}">
+          <div class="event-cover-shade">
+            <button class="detail-back" data-detail-back>${icon('<path d="m14 18-6-6 6-6"></path><path d="M9 12h11"></path>')} Back to events</button>
+            <div class="event-cover-copy"><span class="detail-category">${escapeHtml(event.category)}</span><h1>${escapeHtml(event.title)}</h1><p>${escapeHtml(event.description)}</p></div>
+          </div>
+        </section>
+        <div class="detail-layout">
+          <div class="detail-main">
+            <section class="detail-section"><p class="kicker">A little more about it</p><h2>About this event</h2><p>${escapeHtml(event.description)}</p>
+              <div class="detail-facts">
+                <div class="detail-fact">${icon('<rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M16 3v4M8 3v4M3 10h18"></path>')}<div><strong>${escapeHtml(event.day)}, ${escapeHtml(event.month)} ${escapeHtml(event.date)}, ${event.year}</strong><span>${escapeHtml(event.time)} – ${escapeHtml(event.endTime)}</span></div></div>
+                <div class="detail-fact">${icon('<path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z"></path><circle cx="12" cy="10" r="2.5"></circle>')}<div><strong>${escapeHtml(event.place)}</strong><span>${escapeHtml(event.neighborhood)}</span></div></div>
+              </div>
+            </section>
+            <section class="detail-section"><p class="kicker">The plan</p><h2>Event schedule</h2><div class="detail-schedule">${event.schedule.map(item => `<div class="schedule-row"><time>${escapeHtml(item.time)}</time><div><strong>${escapeHtml(item.title)}</strong><p>${escapeHtml(item.description)}</p></div></div>`).join("")}</div></section>
+            <section class="detail-section"><p class="kicker">A few good reasons</p><h2>What to expect</h2><ul class="detail-highlights">${event.highlights.map(item => `<li>${escapeHtml(item)}</li>`).join("")}</ul></section>
+            <section class="detail-section"><p class="kicker">Put together by</p><h2>Organising club</h2><div class="organiser-row"><div class="organiser-mark" aria-hidden="true"><span>n</span></div><div><strong>${escapeHtml(event.organiser)}</strong></div></div></section>
+            <section class="detail-section"><p class="kicker">Where to meet</p><h2>Venue details</h2><div class="detail-facts"><div class="detail-fact">${icon('<path d="M3 21h18M5 21V7l7-4 7 4v14M9 10h.01M15 10h.01M9 14h.01M15 14h.01M10 21v-4h4v4"></path>')}<div><strong>${escapeHtml(event.place)}</strong><span>${escapeHtml(event.address)}</span></div></div><div class="detail-fact">${icon('<circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path>')}<div><strong>Doors at ${escapeHtml(event.time)}</strong><span>Event ends at ${escapeHtml(event.endTime)}</span></div></div></div></section>
+          </div>
+          <aside class="detail-booking" aria-label="Event registration">
+            <p class="kicker">Save your spot</p><div class="booking-price"><strong>${escapeHtml(event.price)}</strong><span>${event.price === "Free" ? "to attend" : "per person"}</span></div>
+            <div class="booking-line">${icon('<rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M16 3v4M8 3v4M3 10h18"></path>')}<div><strong>${escapeHtml(event.day)}, ${escapeHtml(event.month)} ${escapeHtml(event.date)}</strong><span>${escapeHtml(event.time)} – ${escapeHtml(event.endTime)}</span></div></div>
+            <div class="booking-line">${icon('<path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z"></path><circle cx="12" cy="10" r="2.5"></circle>')}<div><strong>${escapeHtml(event.place)}</strong><span>${escapeHtml(event.neighborhood)}</span></div></div>
+            <div class="booking-line">${icon('<path d="M4 19V5M20 19V5M4 12h16M8 9v6M16 9v6"></path>')}<div><strong>${seats} ${seats === 1 ? "seat" : "seats"} left</strong><span>Capacity ${event.capacity} · ${filled} registered</span><div class="seat-meter" aria-label="${fillPercent}% of seats filled"><span style="width:${fillPercent}%"></span></div><span class="seat-caption">${soldOut ? "This event is full" : "Limited spots available"}</span></div></div>
+            <button class="primary-button" data-detail-register="${event.slug}" ${registered || soldOut ? "disabled" : ""}>${registered ? "You're registered" : soldOut ? "Event full" : "Register now"} <span aria-hidden="true">↗</span></button>
+            <button class="outline-button ${bookmarked ? "saved" : ""}" data-detail-save="${event.slug}" aria-pressed="${bookmarked}">${bookmarked ? "Remove bookmark" : "Save to bookmarks"}</button>
+            <p class="booking-deadline">Registration closes ${escapeHtml(event.deadline)}</p>
+          </aside>
+        </div>`;
+    }
+
+    function renderClubs() {
+      document.getElementById("clubGrid").innerHTML = clubs.map(club => `
+        <article class="club-card"><img src="${photo(club.image)}" alt="${escapeHtml(club.alt)}" loading="lazy"><div><h3>${escapeHtml(club.name)}</h3><p>${escapeHtml(club.type)}</p><span class="club-count"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="9" cy="8" r="3.5"></circle><path d="M2.5 20c0-3.1 2.9-5.3 6.5-5.3s6.5 2.2 6.5 5.3M16 5.2a3.3 3.3 0 0 1 0 6.3M17 15c2.6.5 4.2 2.2 4.2 4.5"></path></svg>${new Intl.NumberFormat("en", { notation: "compact" }).format(club.members)} members</span><button class="small-action" data-join-club="${club.slug}" ${joinedClubs.has(club.slug) ? "disabled" : ""}>${joinedClubs.has(club.slug) ? "Joined" : "Join club"}</button></div><span class="club-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M5 12h14M13 5l7 7-7 7"></path></svg></span></article>`).join("");
+    }
+
+    function setUserUI() {
+      const signedIn = Boolean(user);
+      document.getElementById("signInButton").hidden = signedIn;
+      document.getElementById("joinButton").hidden = signedIn;
+      document.getElementById("userButton").hidden = !signedIn;
+      document.getElementById("savedNav").hidden = !signedIn;
+      document.getElementById("signOutButton").hidden = !signedIn;
+      if (signedIn) {
+        document.querySelectorAll(".user-button .avatar, .dash-user .avatar").forEach(image => { image.src = user.avatar || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=160&h=160&q=80"; image.alt = `${user.name}'s avatar`; });
+        document.querySelector(".user-short-name").textContent = user.name.split(" ")[0];
+        document.getElementById("dashName").textContent = user.name.split(" ")[0];
+      }
+      renderOrganizerTools();
+    }
+
+    function qrMarkup(ticket) {
+      return `<img class="qr-box" src="${escapeHtml(ticket.qr)}" alt="QR code for ticket ${escapeHtml(ticket.code)}">`;
+    }
+
+    function renderDashboard() {
+      document.getElementById("ticketCount").textContent = tickets.length;
+      document.getElementById("savedCount").textContent = saved.length;
+      const chosen = dashTab === "tickets" ? tickets.map(ticket => events.find(event => event.slug === ticket.eventId)).filter(Boolean) : saved.map(slug => events.find(event => event.slug === slug)).filter(Boolean);
+      const container = document.getElementById("dashboardEvents");
+      if (!chosen.length) {
+        container.innerHTML = `<div class="empty-state">${dashTab === "tickets" ? "No tickets yet. Find a plan that feels like you." : "Nothing saved just yet. Tap the heart on an event to keep it close."}</div>`;
+        return;
+      }
+      container.innerHTML = chosen.map(event => {
+        const ticket = tickets.find(item => item.eventId === event.slug);
+        return `<article class="ticket-card"><div><span class="ticket-label">${ticket ? "Your pass" : "Saved for later"}</span><h3>${escapeHtml(event.title)}</h3><p>${event.day}, ${event.month} ${event.date}, ${event.year} · ${event.time}</p><p style="margin-top:5px">${escapeHtml(event.place)} · ${escapeHtml(event.neighborhood)}</p>${ticket ? `<p class="ticket-code">PASS ${escapeHtml(ticket.code)}</p>` : `<button class="small-action" style="margin-top:14px" data-register="${event.slug}">Get a ticket ↗</button>`}</div>${ticket ? qrMarkup(ticket) : `<img src="${photo(event.image)}" alt="${escapeHtml(event.alt)}" style="width:84px;height:84px;object-fit:cover;border-radius:4px;align-self:center">`}</article>`;
+      }).join("");
+    }
+
+    function renderOrganizerTools() {
+      const section = document.getElementById("organizerTools");
+      const select = document.getElementById("organizerClubSelect");
+      const previousSlug = select.value;
+      const manageableClubs = user?.role === "admin"
+        ? clubs
+        : clubMemberships.filter(membership => membership.role === "organizer").map(membership => clubs.find(club => club.slug === membership.slug)).filter(Boolean);
+      section.hidden = !user || manageableClubs.length === 0;
+      if (section.hidden) return;
+      select.innerHTML = manageableClubs.map(club => `<option value="${escapeHtml(club.slug)}">${escapeHtml(club.name)}</option>`).join("");
+      select.value = manageableClubs.some(club => club.slug === previousSlug) ? previousSlug : manageableClubs[0].slug;
+      if (select.dataset.loadedSlug !== select.value) {
+        select.dataset.loadedSlug = select.value;
+        loadOrganizerEvents(select.value);
+      }
+    }
+
+    function renderOrganizerEventList() {
+      const container = document.getElementById("organizerEventList");
+      if (!organizerEvents.length) {
+        container.innerHTML = `<div class="empty-state">No events for this club yet.</div>`;
+        return;
+      }
+      container.innerHTML = organizerEvents.map(event => `<article class="organizer-event-row"><div><h3>${escapeHtml(event.title)}</h3><p>${escapeHtml(event.day)}, ${escapeHtml(event.month)} ${escapeHtml(event.date)} · ${escapeHtml(event.status)} · ${event.registeredCount}/${event.capacity} registered</p></div><div class="organizer-event-actions"><button class="small-action" data-edit-organizer-event="${escapeHtml(event.slug)}">Edit</button><button class="small-action" data-cancel-organizer-event="${escapeHtml(event.slug)}" ${event.status === "cancelled" ? "disabled" : ""}>Cancel</button></div></article>`).join("");
+    }
+
+    async function loadOrganizerEvents(clubSlug) {
+      if (!clubSlug || !user) return;
+      try {
+        const result = await api(`/api/clubs/${encodeURIComponent(clubSlug)}/manage/events`);
+        organizerEvents = result.events;
+        renderOrganizerEventList();
+      } catch (error) {
+        showToast(error.message);
+      }
+    }
+
+    function localDateTime(value) {
+      const date = new Date(value);
+      date.setMinutes(date.getMinutes() - date.getTimezoneOffset());
+      return date.toISOString().slice(0, 16);
+    }
+
+    function openOrganizerForm(event = null) {
+      const form = document.getElementById("organizerEventForm");
+      form.reset();
+      editingEventSlug = event?.slug || "";
+      form.hidden = false;
+      form.elements.status.value = event?.status || "draft";
+      form.elements.capacity.value = event?.capacity || 40;
+      form.elements.price_cents.value = event?.price_cents || 0;
+      if (event) {
+        form.elements.title.value = event.title;
+        form.elements.slug.value = event.slug;
+        form.elements.category.value = event.category;
+        form.elements.description.value = event.description;
+        form.elements.starts_at.value = localDateTime(event.starts_at);
+        form.elements.ends_at.value = localDateTime(event.ends_at);
+        form.elements.registration_deadline.value = localDateTime(event.registration_deadline);
+        form.elements.venue_name.value = event.venue_name;
+        form.elements.neighborhood.value = event.neighborhood;
+        form.elements.address.value = event.address;
+        form.elements.image_url.value = event.image || "";
+        form.elements.image_alt.value = event.alt || "";
+        form.elements.highlights.value = (event.highlights || []).join("\n");
+        form.elements.schedule.value = (event.schedule || []).map(item => `${item.time} | ${item.title} | ${item.description}`).join("\n");
+      }
+      form.querySelector('[type="submit"]').textContent = event ? "Update event" : "Create event";
+      form.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    async function saveOrganizerEvent(event) {
+      event.preventDefault();
+      const form = event.currentTarget;
+      const clubSlug = document.getElementById("organizerClubSelect").value;
+      const schedule = form.elements.schedule.value.split("\n").map(line => line.trim()).filter(Boolean).map(line => {
+        const [time, title, description] = line.split("|").map(value => value.trim());
+        return { time, title, description };
+      });
+      const payload = {
+        title: form.elements.title.value.trim(),
+        slug: form.elements.slug.value.trim(),
+        category: form.elements.category.value.trim(),
+        description: form.elements.description.value.trim(),
+        starts_at: new Date(form.elements.starts_at.value).toISOString(),
+        ends_at: new Date(form.elements.ends_at.value).toISOString(),
+        timezone: "America/New_York",
+        registration_deadline: new Date(form.elements.registration_deadline.value).toISOString(),
+        capacity: Number(form.elements.capacity.value),
+        price_cents: Number(form.elements.price_cents.value),
+        currency: "USD",
+        venue_name: form.elements.venue_name.value.trim(),
+        neighborhood: form.elements.neighborhood.value.trim(),
+        address: form.elements.address.value.trim(),
+        image_url: form.elements.image_url.value.trim() || null,
+        image_alt: form.elements.image_alt.value.trim() || null,
+        highlights: form.elements.highlights.value.split("\n").map(value => value.trim()).filter(Boolean),
+        schedule,
+        status: form.elements.status.value
+      };
+      try {
+        const editing = Boolean(editingEventSlug);
+        const endpoint = editing
+          ? `/api/events/${encodeURIComponent(editingEventSlug)}`
+          : `/api/clubs/${encodeURIComponent(clubSlug)}/events`;
+        await api(endpoint, { method: editing ? "PATCH" : "POST", body: JSON.stringify(payload) });
+        form.hidden = true;
+        editingEventSlug = "";
+        await Promise.all([loadOrganizerEvents(clubSlug), loadPublicData()]);
+        showToast(editing ? "Event updated." : "Event created.");
+      } catch (error) {
+        showToast(error.message);
+      }
+    }
+
+    function showDashboard(tab = "tickets") {
+      if (!user) { openAuth("", "login"); return; }
+      if (getEventIdFromUrl() !== null) history.pushState({ view: "dashboard" }, "", `${location.pathname}${location.search}`);
+      dashTab = tab;
+      landing.hidden = true;
+      document.getElementById("eventDetails").hidden = true;
+      dashboard.hidden = false;
+      document.querySelectorAll(".dash-tab").forEach(button => {
+        const selected = button.dataset.dashboardTab === dashTab;
+        button.classList.toggle("active", selected);
+        button.setAttribute("aria-selected", String(selected));
+      });
+      renderDashboard();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function showLanding(target) {
+      if (getEventIdFromUrl() !== null || history.state?.view === "dashboard") history.pushState({ view: "landing" }, "", `${location.pathname}${location.search}`);
+      dashboard.hidden = true;
+      document.getElementById("eventDetails").hidden = true;
+      landing.hidden = false;
+      if (target) document.querySelector(target)?.scrollIntoView({ behavior: "smooth" });
+    }
+
+    function getEventIdFromUrl() {
+      const hashMatch = location.hash.match(/^#\/events\/([^/?#]+)/);
+      const pathMatch = location.pathname.match(/\/events\/([^/]+)\/?$/);
+      const queryId = new URLSearchParams(location.search).get("event");
+      const encodedId = hashMatch?.[1] || pathMatch?.[1] || queryId;
+      if (!encodedId) return null;
+      try { return decodeURIComponent(encodedId); } catch { return encodedId; }
+    }
+
+    function navigateToEvent(eventId) {
+      history.pushState({ view: "event", eventId }, "", `${location.pathname}${location.search}#/events/${encodeURIComponent(eventId)}`);
+      syncRoute();
+    }
+
+    function navigateToEvents() {
+      showLanding("#events");
+    }
+
+    function syncRoute() {
+      const eventId = getEventIdFromUrl();
+      if (eventId !== null) {
+        landing.hidden = true;
+        dashboard.hidden = true;
+        document.getElementById("eventDetails").hidden = false;
+        renderEventDetails(eventId);
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        return;
+      }
+      if (history.state?.view === "dashboard" && user) { showDashboard(dashTab); return; }
+      document.getElementById("eventDetails").hidden = true;
+      dashboard.hidden = true;
+      landing.hidden = false;
+    }
+
+    function setAuthMode(mode) {
+      authMode = mode;
+      document.querySelectorAll("[data-auth-mode]").forEach(button => {
+        const selected = button.dataset.authMode === mode;
+        button.classList.toggle("active", selected);
+        button.setAttribute("aria-selected", String(selected));
+      });
+      document.getElementById("nameField").hidden = mode === "login";
+      document.getElementById("authTitle").textContent = mode === "login" ? "Welcome back." : "Make it a plan.";
+      document.getElementById("authDescription").textContent = mode === "login" ? "Log in to find your tickets, saved events, and club plans." : "Sign up to save the good ones, keep your tickets together, and meet your next favorite people.";
+      document.getElementById("passwordInput").setAttribute("autocomplete", mode === "login" ? "current-password" : "new-password");
+      document.getElementById("authSubmit").textContent = mode === "login" ? "Log in with email" : "Create account";
+    }
+
+    function openAuth(eventId = "", mode = "signup") {
+      if (eventId) pendingRegistration = eventId;
+      const pendingActions = [
+        ["nexus-pending-registration", pendingRegistration],
+        ["nexus-pending-bookmark", pendingBookmark],
+        ["nexus-pending-club", pendingClub]
+      ];
+      pendingActions.forEach(([key, value]) => value ? sessionStorage.setItem(key, value) : sessionStorage.removeItem(key));
+      setAuthMode(mode);
+      authBackdrop.hidden = false;
+      document.getElementById(authMode === "signup" ? "nameInput" : "emailInput").focus();
+    }
+
+    async function register(eventSlug) {
+      const event = events.find(item => item.slug === eventSlug);
+      if (!event) return false;
+      if (tickets.some(item => item.eventId === eventSlug)) { showToast("You already have a pass for this one."); if (getEventIdFromUrl() === eventSlug) renderEventDetails(eventSlug); return false; }
+      if (availableSeats(event) === 0) { showToast("This event is full."); if (getEventIdFromUrl() === eventSlug) renderEventDetails(eventSlug); return false; }
+      if (!user) { pendingRegistration = eventSlug; sessionStorage.setItem("nexus-pending-registration", eventSlug); openAuth(eventSlug); return false; }
+      try {
+        const result = await api(`/api/events/${encodeURIComponent(eventSlug)}/registrations`, { method: "POST", body: "{}" });
+        await Promise.all([loadPublicData(), loadAccountData()]);
+        showToast(`You're in for ${event.title}. Your ticket is ready.`);
+        if (!dashboard.hidden || getEventIdFromUrl() === null) showDashboard("tickets");
+        if (getEventIdFromUrl() === eventSlug) renderEventDetails(eventSlug);
+        return Boolean(result.ticket);
+      } catch (error) {
+        showToast(error.message);
+        await loadPublicData().catch(() => {});
+        return false;
+      }
+    }
+
+    async function toggleBookmark(eventSlug) {
+      if (!user) { pendingBookmark = eventSlug; sessionStorage.setItem("nexus-pending-bookmark", eventSlug); openAuth(); return; }
+      const wasSaved = saved.includes(eventSlug);
+      try {
+        await api(`/api/events/${encodeURIComponent(eventSlug)}/bookmark`, { method: wasSaved ? "DELETE" : "PUT" });
+        saved = wasSaved ? saved.filter(slug => slug !== eventSlug) : [...saved, eventSlug];
+        renderEvents();
+        renderDashboard();
+        if (getEventIdFromUrl() === eventSlug) renderEventDetails(eventSlug);
+        showToast(wasSaved ? "Removed from saved events." : "Saved for later.");
+      } catch (error) {
+        showToast(error.message);
+      }
+    }
+
+    async function joinClub(clubSlug) {
+      if (!user) { pendingClub = clubSlug; sessionStorage.setItem("nexus-pending-club", clubSlug); openAuth(); return; }
+      if (joinedClubs.has(clubSlug)) return;
+      try {
+        await api(`/api/clubs/${encodeURIComponent(clubSlug)}/membership`, { method: "POST", body: "{}" });
+        joinedClubs.add(clubSlug);
+        await Promise.all([loadPublicData(), loadAccountData()]);
+        showToast("You joined the club.");
+      } catch (error) {
+        showToast(error.message);
+      }
+    }
+
+    eventGrid.addEventListener("click", event => {
+      const saveButton = event.target.closest("[data-save]");
+      const registerButton = event.target.closest("[data-register]");
+      if (saveButton) {
+        toggleBookmark(saveButton.dataset.save);
+        return;
+      }
+      if (registerButton) { register(registerButton.dataset.register); return; }
+      const card = event.target.closest("[data-event-card]");
+      if (card) navigateToEvent(card.dataset.eventCard);
+    });
+    eventGrid.addEventListener("keydown", event => {
+      const card = event.target.closest("[data-event-card]");
+      if (card && event.target === card && (event.key === "Enter" || event.key === " ")) { event.preventDefault(); navigateToEvent(card.dataset.eventCard); }
+    });
+    document.getElementById("eventDetails").addEventListener("click", event => {
+      const backButton = event.target.closest("[data-detail-back]");
+      const registerButton = event.target.closest("[data-detail-register]");
+      const bookmarkButton = event.target.closest("[data-detail-save]");
+      if (backButton) navigateToEvents();
+      else if (registerButton) register(registerButton.dataset.detailRegister);
+      else if (bookmarkButton) toggleBookmark(bookmarkButton.dataset.detailSave);
+    });
+    document.getElementById("dashboardEvents").addEventListener("click", event => {
+      const button = event.target.closest("[data-register]");
+      if (button) register(button.dataset.register);
+    });
+    document.getElementById("clubGrid").addEventListener("click", event => {
+      const button = event.target.closest("[data-join-club]");
+      if (button) joinClub(button.dataset.joinClub);
+    });
+    document.getElementById("organizerClubSelect").addEventListener("change", event => {
+      event.target.dataset.loadedSlug = event.target.value;
+      organizerEvents = [];
+      renderOrganizerEventList();
+      loadOrganizerEvents(event.target.value);
+    });
+    document.getElementById("newOrganizerEvent").addEventListener("click", () => openOrganizerForm());
+    document.getElementById("cancelOrganizerEdit").addEventListener("click", () => {
+      document.getElementById("organizerEventForm").hidden = true;
+      editingEventSlug = "";
+    });
+    document.getElementById("organizerEventForm").addEventListener("submit", saveOrganizerEvent);
+    document.getElementById("organizerEventList").addEventListener("click", async event => {
+      const editButton = event.target.closest("[data-edit-organizer-event]");
+      const cancelButton = event.target.closest("[data-cancel-organizer-event]");
+      if (editButton) {
+        const selected = organizerEvents.find(item => item.slug === editButton.dataset.editOrganizerEvent);
+        if (selected) openOrganizerForm(selected);
+      } else if (cancelButton && window.confirm("Cancel this event? Existing registrations will remain recorded.")) {
+        try {
+          await api(`/api/events/${encodeURIComponent(cancelButton.dataset.cancelOrganizerEvent)}`, { method: "DELETE" });
+          const clubSlug = document.getElementById("organizerClubSelect").value;
+          await Promise.all([loadOrganizerEvents(clubSlug), loadPublicData()]);
+          showToast("Event cancelled.");
+        } catch (error) {
+          showToast(error.message);
+        }
+      }
+    });
+    document.querySelectorAll(".filter-chip").forEach(button => button.addEventListener("click", () => {
+      activeFilter = button.dataset.filter;
+      document.querySelectorAll(".filter-chip").forEach(chip => chip.classList.toggle("active", chip === button));
+      renderEvents();
+    }));
+    document.getElementById("searchForm").addEventListener("submit", event => {
+      event.preventDefault();
+      searchTerm = document.getElementById("searchInput").value.trim();
+      renderEvents();
+      showLanding("#events");
+    });
+    document.getElementById("searchInput").addEventListener("input", event => { searchTerm = event.target.value.trim(); renderEvents(); });
+    document.getElementById("clearFilters").addEventListener("click", () => {
+      activeFilter = "All"; searchTerm = "";
+      document.getElementById("searchInput").value = "";
+      document.querySelectorAll(".filter-chip").forEach(chip => chip.classList.toggle("active", chip.dataset.filter === "All"));
+      renderEvents();
+    });
+    document.getElementById("clubToast").addEventListener("click", () => showToast("More neighborhood clubs are on the way."));
+    document.querySelectorAll("[data-return]").forEach(link => link.addEventListener("click", event => {
+      if (getEventIdFromUrl() !== null) event.preventDefault();
+      showLanding(link.getAttribute("href"));
+    }));
+    document.getElementById("userButton").addEventListener("click", () => showDashboard());
+    document.getElementById("savedNav").addEventListener("click", () => showDashboard("saved"));
+    document.getElementById("signInButton").addEventListener("click", () => openAuth("", "login"));
+    ["joinButton", "joinCta"].forEach(id => document.getElementById(id).addEventListener("click", () => openAuth("", "signup")));
+    document.querySelectorAll("[data-auth-mode]").forEach(button => button.addEventListener("click", () => setAuthMode(button.dataset.authMode)));
+    document.querySelectorAll(".dash-tab").forEach(button => button.addEventListener("click", () => showDashboard(button.dataset.dashboardTab)));
+    document.getElementById("closeAuth").addEventListener("click", () => { authBackdrop.hidden = true; clearPendingActions(); });
+    authBackdrop.addEventListener("click", event => { if (event.target === authBackdrop) { authBackdrop.hidden = true; clearPendingActions(); } });
+    document.addEventListener("keydown", event => { if (event.key === "Escape" && !authBackdrop.hidden) { authBackdrop.hidden = true; clearPendingActions(); } });
+    document.getElementById("authSubmit").addEventListener("click", async () => {
+      const email = document.getElementById("emailInput").value.trim();
+      const password = document.getElementById("passwordInput").value;
+      const name = document.getElementById("nameInput").value.trim();
+      if (!email || !password || (authMode === "signup" && !name)) { showToast("Enter the required account details."); return; }
+      try {
+        const result = authMode === "signup"
+          ? await window.NexusApi.signUp({ email, password, name })
+          : await window.NexusApi.signIn({ email, password });
+        if (!result.session) {
+          authBackdrop.hidden = true;
+          showToast("Check your email to confirm your account, then log in.");
+          return;
+        }
+        session = result.session;
+        authBackdrop.hidden = true;
+        await loadAccountData();
+        showToast(authMode === "signup" ? "Your Nexus Club account is ready." : "Welcome back to Nexus Club.");
+        await completePendingActions();
+      } catch (error) {
+        showToast(error.message);
+      }
+    });
+    document.getElementById("googleSignIn").addEventListener("click", async () => {
+      try { await window.NexusApi.signInWithGoogle(); }
+      catch (error) { showToast(error.message); }
+    });
+    document.getElementById("signOutButton").addEventListener("click", async () => {
+      try {
+        await window.NexusApi.signOut();
+        session = null;
+        await loadAccountData();
+        showLanding("#top");
+        showToast("You have signed out.");
+      } catch (error) {
+        showToast(error.message);
+      }
+    });
+
+    window.addEventListener("popstate", syncRoute);
+    window.addEventListener("hashchange", syncRoute);
+    renderEvents();
+    renderClubs();
+    setUserUI();
+    initializeApp();
+  </script>
+</body>
+</html>
